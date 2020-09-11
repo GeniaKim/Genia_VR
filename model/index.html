@@ -7,21 +7,37 @@
 		<script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
 		<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
 
+		<script>
+	      	AFRAME.registerComponent('loaded', {
+	          init: function () {
+	            var el = this.el;
+	            el.addEventListener('model-loaded', () => {
+	              console.log(el.id+" chargé");
+	              });
+	            this.el.addEventListener('model-error', () => {
+	                // Grab the mesh / scene.
+	                console.log("erreur");
+	              });
+	            }
+	      	});
+	    </script>
   </head>
 
   <body style='margin : 0px; overflow: hidden;'>
 
 		<a-scene background="color: skyblue">
 			<a-assets>
-				<a-asset-item id="glbModel" src="./models/female.glb"></a-asset-item>
+				<a-asset-item id="glbModel" src="./models/femme_animated.glb"></a-asset-item>
 			</a-assets>
 
 			<a-entity   id ="modele"
-						scale="0.03 0.03 0.03"
+						scale="1 1 1"
 						position="0 0 -5"
-						rotation="0 270 0"
+						rotation="0 90 0"
+						loaded
+						animation-mixer
 						gltf-model="#glbModel">
-			 </a-entity>
+			</a-entity>
     	</a-scene>
 
   </body>
