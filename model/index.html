@@ -27,17 +27,19 @@
 
 		<a-scene background="color: skyblue">
 			<a-assets>
-				<a-asset-item id="glbModel" src="./models/femme_animated.glb"></a-asset-item>
+				<a-asset-item id="glbModel" src="./models/femmerigVR.glb"></a-asset-item>
 			</a-assets>
 
 			<a-entity   id ="modele"
 						scale="1 1 1"
 						position="0 0 -5"
-						rotation="0 90 0"
+						rotation="90 90 180"
 						loaded
 						animation-mixer
 						gltf-model="#glbModel">
 			</a-entity>
+
+			  <a-entity id="camera" position=" 0 1.7 0" camera look-controls></a-entity>
     	</a-scene>
 
   </body>
