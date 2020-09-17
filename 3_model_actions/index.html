@@ -15,7 +15,8 @@
 	  <a-scene background="color: skyblue">
 		  <a-assets>
 			  <a-asset-item id="glbModel" src="./models/femme_actions.glb"></a-asset-item>
-				<video id="antarctica" autoplay loop="true" src="antarctica.mp4"> </video>
+				<img id="skyTexture"
+					src="./models/greece.jpg">
 		  </a-assets>
 
 		  <a-entity   id ="modele"
@@ -49,6 +50,8 @@
 <a-light type="point" color="white" position="-3 -1 -1" intensity="0.5"></a-light>
 
 <a-light type="point" color="white" position="3 -1 -1" intensity="0.5"></a-light>
+
+<a-sky src="#skyTexture"></a-sky>
 
 
 	  </a-scene>
