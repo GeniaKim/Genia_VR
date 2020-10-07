@@ -1,0 +1,48 @@
+<html>
+
+  <head>
+  <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+
+  <script>
+
+  AFRAME.registerComponent("coucou", {
+
+              init: function () {
+              console.log("coucou");
+            }
+
+  });
+
+  AFRAME.registerComponent("log", {
+            schema: {
+              texte: {type: 'string', default: '>>>Logging...'}
+            },
+            init: function () {
+              console.log(this.data.texte);
+            }
+
+  });
+  </script>
+
+  </head>
+
+  <body>
+
+          <a-scene>
+
+          <a-entity
+
+            geometry="primitive: box"
+            position="0 0 -5"
+            rotation="0 30 30"
+            coucou
+            log="texte:ca marche"
+            >
+
+          </a-entity>
+
+          <a-sky color="#6EBAA7"></a-sky>
+          </a-scene>
+
+  </body>
+</html>
