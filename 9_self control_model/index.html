@@ -1,0 +1,78 @@
+<html>
+
+  <head>
+  <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
+
+  <script>
+
+
+  AFRAME.registerComponent('loaded', {
+          init: function() {
+            this.el.addEventListener('model-loaded', () => {
+              console.log("model loaded " + this.el.id);
+            }); 
+            }
+
+  });
+
+  AFRAME.registerComponent('finished', {
+          init: function() {
+            var el = this.el;
+            el.addEventListener('animation-finished', () => {
+              console.log("animation mixer " + "clip: pas_01_D; timeScale: 1; repetitions: 5; ");
+            });
+            }
+
+  });
+
+  AFRAME.registerComponent('loop', {
+          init: function() {
+            var el = this.el
+            el.addEventListener('animation-loop', () => {
+              console.log("animation loop "+ el.id);
+            });
+            }
+
+  });
+  </script>
+
+  </head>
+
+  <body>
+
+          <a-scene>
+
+            <a-assets>
+              <a-asset-item id="cecile" src="./models/cecile_genia.glb"></a-asset-item>
+              <img id="skyTexture"
+                src="./models/greece.jpg">
+            </a-assets>
+
+            <a-entity id="cecile"
+                      scale="1.5 1.5 1.5"
+                      position="0 0 -4"
+                      rotation="90 0 0"
+                      gltf-model="#cecile"
+                      animation-mixer="clip: pas_01_D; timeScale: 1; repetitions: 5; "
+                      loaded
+                      finished
+                      loop
+                      >
+            </a-entity>
+
+
+
+
+
+            <a-entity id="camera" position="0 1.7 0" camera look-controls></a-entity>
+
+            <a-light type="point" color="white" position="0 5 0" intensity="3"></a-light>
+            <a-light type="point" color="white" position="-3 -1 -1" intensity="0.5"></a-light>
+            <a-light type="point" color="white" position="3 -1 -1" intensity="0.5"></a-light>
+
+          <a-sky color="#6EBAA7"></a-sky>
+          </a-scene>
+
+  </body>
+</html>
