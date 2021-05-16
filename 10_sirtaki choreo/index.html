@@ -1,0 +1,139 @@
+<html lang="fr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <title>TITRE</title>
+
+        <!-- SCRIPTS -->
+        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+		<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+        <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+        <script src="./js/unlock_audio_ios.js"></script>
+
+        <!-- <script content-type="text/javascript" src="./js/component.js"></script> -->
+
+        <script>
+    		//AFRAME... = je créé des composants (répertoire)
+    		      AFRAME.registerComponent('loaded', {
+    		          init: function () {
+    		            var el = this.el;
+    		      el.addEventListener('model-loaded', () => {
+    		            console.log(">>>> modele chargé "+el.id);
+    		          });
+    		        el.addEventListener('model-error', () => {
+    		            console.log(">>>> modele erreur");
+    		          });
+    		          }
+    		      });
+
+    		      AFRAME.registerComponent('finished', {
+    		          init: function () {
+    		              var el = this.el;
+    		                el.addEventListener('animation-finished',() => {
+    		                  console.log(">>>> animation fini "+el.id);
+    		                });
+    		                }
+    		            });
+
+    		      AFRAME.registerComponent('loop', {
+    		          init: function () {
+    		              var el = this.el;
+    		              var nombre = 1;
+    		                el.addEventListener('animation-loop',() => {
+    		                  if (nombre<5){nombre = nombre +1}
+    		                    else {nombre = 1}
+    		                  console.log(nombre)
+    		switch (nombre) {
+    		  case 1: el.setAttribute ('animation-mixer', "clip: pas_01")
+    		  el.setAttribute ('animation-mixer', "timeScale: 0.7", "clampWhenFinished:true")
+    		  console.log("anim 1")
+    		    break;
+
+    		  case 2: el.setAttribute ('animation-mixer', "clip: pas_02")
+    		  el.setAttribute ('animation-mixer', "timeScale: 0.8", "clampWhenFinished:true")
+    		    console.log("anim 2")
+    		    break;
+
+    		  case 3:
+    		  el.setAttribute ('animation-mixer', "clip: pas_03")
+    		  el.setAttribute ('animation-mixer', "timeScale: 1", "clampWhenFinished:true")
+    		    console.log("anim 3")
+    		    break;
+
+    		  case 4:
+    		  el.setAttribute ('animation-mixer', "clip: pas_04")
+    		  el.setAttribute ('animation-mixer', "timeScale: 0.7", "clampWhenFinished:true")
+    		    console.log("anim 4")
+    		    break;
+
+    		  case 5:
+    		  el.setAttribute ('animation-mixer', "clip: pas_05")
+    		  el.setAttribute ('animation-mixer', "timeScale: 0.8", "clampWhenFinished:true")
+    		    console.log("anim 5")
+    		    break;
+
+    		}
+    		       console.log(">>>> loop fini "+el.id);
+
+    		                });
+    		                }
+    		            });
+    		      </script>
+
+    </head>
+
+    <body style='margin : 0px; overflow: hidden;'>
+
+        <!-- SCENE AFRAME -->
+        <a-scene background="color: skyblue">
+
+            <!-- CHARGEMENT DES ASSETS -->
+    		<a-assets>
+    	  <a-asset-item id="glbCecile" src="./assets/models/cecile_genia.glb"></a-asset-item>
+
+
+                <audio id="zorba" src="./assets/audio/zorba.mp3" preload="auto" loop="false"></audio>
+                <img id="img360" crossorigin="anonymous" src="./assets/img/ioannis.jpg" />
+            </a-assets>
+
+            <!-- ECLAIRAGES -->
+			<a-entity light="type: ambient; color: #CCC; intensity: 1"></a-entity>
+			<a-entity light="type: directional; castShadow:true; intensity: 0.5" position="-1 2 1"></a-entity>
+
+            <!-- MODELES 3D -->
+
+          <a-entity  id ="cecile"  position="0 0 -3.5" gltf-model="#glbCecile"  rotation="90 90 90"
+                       loaded animation-mixer="timeScale: 0"
+                       shadow="cast:true; receive:true"
+                       init_anim_delai="audio: zorba; delai: 5000; animdata: clip: pas_04;">
+          </a-entity>
+
+            <!-- ANNONCE -->
+            <a-text id="texte" value="teach me to dance ?" align="center" color="#FFF"
+                    visible="true" position="1 0.75 -2"
+                    geometry="primitive: plane; width: 2; height: 0.5" material="color: #333"
+                    event-set__curseur="_event: mouseenter; _target: #curseur; visible: false"
+                    event-set__texte="_event: mouseenter; _target: #texte; visible: false"
+                    init_sound="audio: zorba"
+                    >
+            </a-text>
+
+            <!-- ENVIRONNEMENTS (ici photo 360)-->
+			<a-sky src="#img360" rotation="0 150 0"></a-sky>
+            <a-plane position="0 0 -4" rotation="-90 0 0"
+                     width="8" height="8" color="#CCCCCC"
+                     shadow="receive: true"
+                     shadow-material="opacite: 0.3">
+            </a-plane>
+
+            <a-camera>
+                <a-cursor id="curseur"></a-cursor>
+            </a-camera>
+
+        </a-scene>
+
+
+    </body>
+</html>
